@@ -1,0 +1,238 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Dashboard</title>
+    <link rel="stylesheet" href="../public/stylesheets/RecruiterDashboard.css">
+    <link rel="icon" href="/path/to/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="recruiter-dashboard">
+        <nav class="navbar">
+            <div class="navbar-left">
+                <a href="/" class="logo">
+                    <img src="/path/to/logoo.png" alt="LinkedIn Logo">
+                </a>
+                <div class="search-box">
+                    <img src="/path/to/search.png" alt="Search Icon">
+                    <input type="text" placeholder="Search">
+                </div>
+            </div>
+            <div class="navbar-center">
+                <ul>
+                    <li class="active-link">
+                        <a href="/">
+                            <img src="/path/to/profile-home.png" alt="Home">
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/jobs">
+                            <img src="/path/to/profile-job.png" alt="Jobs">
+                            <span>Jobs</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-right">
+                <img src="/path/to/profile-pic.jpeg" alt="Profile" onclick="toggleMenu()">
+                <div class="online"></div>
+            </div>
+            <div class="profile-menu-wrap" id="profile-menu">
+                <div class="profile-menu">
+                    <div class="user-info">
+                        <img src="/path/to/profile-pic.jpeg" alt="Profile">
+                        <div>
+                            <h3>Jumanah Maheen</h3>
+                            <a href="/profile">See your profile</a>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <a href="/logout" class="profile-menu-link">
+                        <img src="/path/to/turn-off.png" alt="Logout">
+                        <p>Logout</p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="left-sidebar">
+                <div class="sidebar-profile-box">
+                    <img src="/path/to/cover.png" width="100%" alt="Cover">
+                    <div class="sidebar-profile-info">
+                        <img src="/path/to/profile-pic.jpeg" alt="Profile">
+                        <h1>Jumanah Maheen</h1>
+                        <h3>Web Developer at Solid Performers</h3>
+                        <ul>
+                            <li>Your profile views <span>52</span></li>
+                            <li>Your post views <span>810</span></li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-profile-link">
+                        <a href="/my-items">
+                            <img src="/path/to/favicon.ico" alt="My Items"> My Items
+                        </a>
+                        <a href="/premium">
+                            <img src="/path/to/crown.png" alt="Premium"> Try Premium
+                        </a>
+                    </div>
+                </div>
+
+                <div class="sidebar-activity <%= showMore ? 'show-more' : '' %>" id="recent-box">
+                    <h3>RECENT</h3>
+                    <a href="#">
+                        <img src="/path/to/recent.png" alt="Web Development"> Web Development
+                    </a>
+                </div>
+                
+
+                <p onclick="toggleSidebar()" class="show-more-link">
+                    <%= showMore ? 'Show less -' : 'Show more +' %>
+                </p>
+            </div>
+
+            <div class="main-content">
+                <!-- <div class="create-campaign">
+                    <h2>Create Campaign</h2>
+                    <pre><%= JSON.stringify(data, null, 2) %></pre>
+                    <form action="/api/campaigns/create" method="POST">
+                        <div class="form-group">
+                            <label>Recruiter ID</label>
+                            <input type="number" name="recruiter_id" value="<%= campaign.recruiterId %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Company</label>
+                            <input type="text" name="company" value="<%= campaign.company %>" maxlength="30" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Role Offered</label>
+                            <input type="text" name="role_offered" value="<%= campaign.role_offered %>" maxlength="50" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" name="location" value="<%= campaign.location %>" maxlength="50" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Minimum Stipend</label>
+                            <input type="number" name="min_stiphend" value="<%= campaign.min_stiphend %>" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Maximum Stipend</label>
+                            <input type="number" name="max_stiphend" value="<%= campaign.max_stiphend %>" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label>CGPA Cutoff</label>
+                            <input type="number" name="cgpa_cutoff" value="<%= campaign.cgpa_cutoff %>" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Date</label>
+                            <input type="date" name="last_date" value="<%= campaign.last_date %>" required>
+                        </div>
+                        <button type="submit">Create Campaign</button>
+                    </form>
+                </div> --
+
+
+
+                <div class="create-campaign">
+                    <h2>Create Campaign</h2>
+                    <form action="/api/campaigns/create" method="POST">
+                        <div class="form-group">
+                            <label>Recruiter ID</label>
+                            <input type="text" name="recruiterId" value="<%= data.recruiter_id %>" required />
+                        </div>
+
+                        <button type="submit">Create Campaign</button>
+                    </form>
+                </div>
+                
+                <div class="view-campaigns">
+                    <h2>Your Campaigns</h2>
+                    <% if (campaigns.length > 0) { %>
+                        <ul>
+                            <% campaigns.forEach(function(camp, index) { %>
+                                <li key="<%= index %>">
+                                    <h3><%= camp.role_offered %> at <%= camp.company %></h3>
+                                    <p>Location: <%= camp.location %></p>
+                                    <p>Min Stipend: <%= camp.min_stiphend %></p>
+                                    <p>Max Stipend: <%= camp.max_stiphend %></p>
+                                    <p>CGPA Cutoff: <%= camp.cgpa_cutoff %></p>
+                                    <p>Last Date: <%= new Date(camp.last_date).toLocaleDateString() %></p>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    <% } else { %>
+                        <p>No campaigns created yet.</p>
+                    <% } %>
+                </div>
+                
+                
+                
+            </div>
+
+            <div class="view-campaigns">
+                <h2>Your Campaigns</h2>
+                <% if (campaigns.length > 0) { %>
+                    <ul>
+                        <% campaigns.forEach(function(camp, index) { %>
+                            <li key="<%= index %>">
+                                <h3><%= camp.role_offered %> at <%= camp.company %></h3>
+                                <p>Location: <%= camp.location %></p>
+                                <p>Min Stipend: <%= camp.min_stiphend %></p>
+                                <p>Max Stipend: <%= camp.max_stiphend %></p>
+                                <p>CGPA Cutoff: <%= camp.cgpa_cutoff %></p>
+                                <p>Last Date: <%= new Date(camp.last_date).toLocaleDateString() %></p>
+                            </li>
+                        <% }) %>
+                    </ul>
+                <% } else { %>
+                    <p>No campaigns created yet.</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const profileMenu = document.getElementById("profile-menu");
+            if (profileMenu) {
+                profileMenu.classList.toggle("active");
+            }
+        }
+
+        function toggleSidebar() {
+            showMore = !showMore;
+            document.getElementById("recent-box").classList.toggle("show-more");
+            document.querySelector(".show-more-link").innerText = showMore ? "Show less -" : "Show more +";
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recruiter Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to the Recruiter Dashboard</h1>
+    <h2>Your Campaigns:</h2>
+    <ul>
+        <% campaigns.forEach(function(campaign) { %>
+            <li>
+                <strong>Company:</strong> <%= campaign.company %><br>
+                <strong>Role Offered:</strong> <%= campaign.role_offered %><br>
+                <strong>Location:</strong> <%= campaign.location %><br>
+                <strong>Stipend:</strong> <%= campaign.min_stiphend %> - <%= campaign.max_stiphend %><br>
+                <strong>Last Date:</strong> <%= campaign.last_date %><br>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>
